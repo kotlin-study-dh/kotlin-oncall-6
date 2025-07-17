@@ -1,6 +1,6 @@
 package oncall.worker
 
-class Worker(
+data class Worker(
     val name: String,
 ) {
     init {

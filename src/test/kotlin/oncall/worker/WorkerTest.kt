@@ -13,9 +13,8 @@ class WorkerTest {
         val name = "a".repeat(invalidNameSize)
 
         // when & then
-        assertThatThrownBy {
-            Worker(name)
-        }.isExactlyInstanceOf(IllegalArgumentException::class.java)
+        assertThatThrownBy { Worker(name) }
+            .isExactlyInstanceOf(IllegalArgumentException::class.java)
             .hasMessageContaining("Name must be between 2 and 5 characters. invalid name: $name")
     }
 
