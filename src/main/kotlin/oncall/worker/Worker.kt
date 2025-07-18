@@ -5,7 +5,7 @@ data class Worker(
 ) {
     init {
         require(name.length in NAME_MIN_SIZE..NAME_MAX_SIZE) {
-            "Name must be between 2 and 5 characters. invalid name: $name"
+            "Name must be between $NAME_MIN_SIZE and $NAME_MAX_SIZE characters. invalid name: $name"
         }
         require(NAME_REGEX.matches(name)) {
             "Name must consist of alphabetic characters only. Invalid name: $name"
