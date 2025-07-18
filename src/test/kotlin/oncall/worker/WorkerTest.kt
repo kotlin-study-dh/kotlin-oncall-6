@@ -16,7 +16,7 @@ class WorkerTest {
         // when & then
         assertThatThrownBy { Worker(name) }
             .isExactlyInstanceOf(IllegalArgumentException::class.java)
-            .hasMessageContaining("Name must be between 2 and 5 characters. invalid name: $name")
+            .hasMessageContaining("Name must be between 2 and 5 characters. Invalid name: $name")
     }
 
     @Test
