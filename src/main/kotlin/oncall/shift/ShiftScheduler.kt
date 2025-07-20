@@ -2,7 +2,7 @@ package oncall.shift
 
 import oncall.shift.ShiftWorkers.NonWorkingDayShiftWorkers
 import oncall.shift.ShiftWorkers.WorkingDayShiftWorkers
-import oncall.util.isDifferentMonth
+import oncall.util.isSameMonth
 import oncall.util.isWorkingDay
 import oncall.util.next
 import oncall.util.previous
@@ -42,7 +42,7 @@ class ShiftScheduler {
         val workingDayConsecutiveShiftWorkers: Queue<Worker> = LinkedList()
         val nonWorkingDayConsecutiveShiftWorkers: Queue<Worker> = LinkedList()
 
-        while (!startDate.isDifferentMonth(now)) {
+        while (startDate.isSameMonth(now)) {
             val previousWorker = schedule[now.previous()]
             val nextWorker = if (now.isWorkingDay()) {
                 getNextWorker(previousWorker, workingDayShiftWorkers, workingDayConsecutiveShiftWorkers)

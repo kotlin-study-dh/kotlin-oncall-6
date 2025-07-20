@@ -40,7 +40,7 @@ fun LocalDate.previous() = this.minusDays(1)!!
 
 fun LocalDate.next() = this.plusDays(1)!!
 
-fun LocalDate.isDifferentMonth(other: LocalDate) = this.month != other.month
+fun LocalDate.isSameMonth(other: LocalDate) = this.year == other.year && this.month == other.month
 
 object LocalDateUtil {
     fun resolveFirstMatchingDayOfWeek(month: Int, targetDayOfWeek: DayOfWeek): LocalDate {
