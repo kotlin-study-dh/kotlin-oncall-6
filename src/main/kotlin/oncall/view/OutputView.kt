@@ -1,7 +1,8 @@
-package oncall.worker
+package oncall.view
 
 import oncall.util.isPublicHoliday
 import oncall.util.korDayOfWeek
+import oncall.worker.Worker
 import java.time.LocalDate
 
 object OutputView {
@@ -19,7 +20,7 @@ object OutputView {
         }
     }
 
-    fun printError(message: String?) {
+    fun printErrorMessage(message: String?) {
         println("$ERROR_MESSAGE_PREFIX$message")
     }
 }
