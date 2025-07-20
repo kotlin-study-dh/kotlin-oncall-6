@@ -1,5 +1,9 @@
 package oncall
 
+import oncall.controller.OnCallController
+import oncall.shift.ShiftScheduler
+
 fun main() {
-    TODO("프로그램 구현")
+    val onCallController = OnCallController(ShiftScheduler())
+    onCallController.start()
 }
