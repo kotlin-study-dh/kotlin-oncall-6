@@ -49,6 +49,10 @@ fun LocalDate.next(): LocalDate {
     return this.plusDays(1)
 }
 
+fun LocalDate.isDifferentMonth(other: LocalDate): Boolean {
+    return this.month != other.month
+}
+
 object LocalDateUtil {
     fun resolveFirstMatchingDayOfWeek(month: Int, targetDayOfWeek: DayOfWeek): LocalDate {
         val firstDayOfMonth = LocalDate.of(DEFAULT_YEAR, month, 1)

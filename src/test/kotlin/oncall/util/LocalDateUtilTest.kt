@@ -129,6 +129,32 @@ class LocalDateUtilTest {
         assertThat(nextDate).isEqualTo(LocalDate.of(2023, 10, 3))
     }
 
+    @Test
+    fun `should return false when the month is the same`() {
+        // given
+        val localDate = LocalDate.of(2023, 10, 2)
+        val otherDate = LocalDate.of(2023, 10, 3)
+
+        // when
+        val isDifferentMonth = localDate.isDifferentMonth(otherDate)
+
+        // then
+        assertThat(isDifferentMonth).isFalse()
+    }
+
+    @Test
+    fun `should return true when the month is different`() {
+        // given
+        val localDate = LocalDate.of(2023, 10, 31)
+        val otherDate = LocalDate.of(2023, 11, 1)
+
+        // when
+        val isDifferentMonth = localDate.isDifferentMonth(otherDate)
+
+        // then
+        assertThat(isDifferentMonth).isTrue()
+    }
+
     @ParameterizedTest
     @CsvSource(
         "10, TUESDAY, 2023-10-03",
