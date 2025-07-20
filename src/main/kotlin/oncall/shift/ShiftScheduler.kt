@@ -25,10 +25,10 @@ class ShiftScheduler {
         workingDayShiftWorkers: WorkingDayShiftWorkers,
         nonWorkingDayShiftWorkers: NonWorkingDayShiftWorkers,
     ) {
-        val uniqueShiftWorkers = workingDayShiftWorkers.shiftWorkers
-            .union(nonWorkingDayShiftWorkers.shiftWorkers)
-        require(uniqueShiftWorkers.size in MIN_SHIFT_WORKERS..MAX_SHIFT_WORKERS) {
-            "Unique shift workers must be between $MIN_SHIFT_WORKERS and $MAX_SHIFT_WORKERS. Invalid shift worker size: ${uniqueShiftWorkers.size}."
+        workingDayShiftWorkers.shiftWorkers.union(nonWorkingDayShiftWorkers.shiftWorkers).also {
+            require(it.size in MIN_SHIFT_WORKERS..MAX_SHIFT_WORKERS) {
+                "Unique shift workers must be between $MIN_SHIFT_WORKERS and $MAX_SHIFT_WORKERS. Invalid shift worker size: ${it.size}."
+            }
         }
     }
 

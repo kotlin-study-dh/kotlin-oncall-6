@@ -25,33 +25,19 @@ private val dayOfWeekToKor = mapOf(
 private val KorToDayOfWeek = dayOfWeekToKor.entries
     .associate { (k, v) -> v to k }
 
-fun LocalDate.isWorkingDay(): Boolean {
-    return this.dayOfWeek.value in 1..5 && !this.isPublicHoliday()
-}
+fun LocalDate.isWorkingDay() = this.dayOfWeek.value in 1..5 && !this.isPublicHoliday()
 
-fun LocalDate.isNonWorkingDay(): Boolean {
-    return this.dayOfWeek.value in 6..7 || this.isPublicHoliday()
-}
+fun LocalDate.isNonWorkingDay() = this.dayOfWeek.value in 6..7 || this.isPublicHoliday()
 
-fun LocalDate.isPublicHoliday(): Boolean {
-    return publicHolidays.contains(this)
-}
+fun LocalDate.isPublicHoliday() = publicHolidays.contains(this)
 
-fun LocalDate.korDayOfWeek(): String {
-    return dayOfWeekToKor[this.dayOfWeek]!!
-}
+fun LocalDate.korDayOfWeek() = dayOfWeekToKor[this.dayOfWeek]!!
 
-fun LocalDate.previous(): LocalDate {
-    return this.minusDays(1)
-}
+fun LocalDate.previous() = this.minusDays(1)!!
 
-fun LocalDate.next(): LocalDate {
-    return this.plusDays(1)
-}
+fun LocalDate.next() = this.plusDays(1)!!
 
-fun LocalDate.isDifferentMonth(other: LocalDate): Boolean {
-    return this.month != other.month
-}
+fun LocalDate.isDifferentMonth(other: LocalDate) = this.month != other.month
 
 object LocalDateUtil {
     fun resolveFirstMatchingDayOfWeek(month: Int, targetDayOfWeek: DayOfWeek): LocalDate {
@@ -60,8 +46,6 @@ object LocalDateUtil {
         return firstDayOfMonth.plusDays(dayOfWeekDiff.toLong())
     }
 
-    fun getDayOfWeekFromKor(korDayOfWeek: String): DayOfWeek {
-        return KorToDayOfWeek[korDayOfWeek]
-            ?: throw IllegalArgumentException("Invalid Korean day of week: $korDayOfWeek")
-    }
+    fun getDayOfWeekFromKor(korDayOfWeek: String) =
+        KorToDayOfWeek[korDayOfWeek] ?: throw IllegalArgumentException("Invalid Korean day of week: $korDayOfWeek")
 }
