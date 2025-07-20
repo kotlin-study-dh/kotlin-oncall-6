@@ -155,6 +155,16 @@ class LocalDateUtilTest {
         assertThat(isDifferentMonth).isTrue()
     }
 
+    @ParameterizedTest(name = "invalidMonth={0}")
+    @ValueSource(ints = [0, 13])
+    fun `should fail to resolve first matching day of week for invalid month`(invalidMonth: Int) {
+        // when & then
+        assertThatThrownBy {
+            LocalDateUtil.resolveFirstMatchingDayOfWeek(invalidMonth, DayOfWeek.MONDAY)
+        }.isExactlyInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("Month must be between 1 and 12. Invalid month: $invalidMonth.")
+    }
+
     @ParameterizedTest
     @CsvSource(
         "10, TUESDAY, 2023-10-03",

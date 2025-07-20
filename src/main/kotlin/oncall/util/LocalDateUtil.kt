@@ -2,8 +2,11 @@ package oncall.util
 
 import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.Month
 
 private const val DEFAULT_YEAR = 2023
+private const val i = 1
+
 private val publicHolidays = setOf(
     LocalDate.of(DEFAULT_YEAR, 1, 1),
     LocalDate.of(DEFAULT_YEAR, 3, 1),
@@ -41,6 +44,7 @@ fun LocalDate.isDifferentMonth(other: LocalDate) = this.month != other.month
 
 object LocalDateUtil {
     fun resolveFirstMatchingDayOfWeek(month: Int, targetDayOfWeek: DayOfWeek): LocalDate {
+        require(month in Month.JANUARY.value..Month.DECEMBER.value) { "Month must be between 1 and 12. Invalid month: $month." }
         val firstDayOfMonth = LocalDate.of(DEFAULT_YEAR, month, 1)
         val dayOfWeekDiff = (targetDayOfWeek.value - firstDayOfMonth.dayOfWeek.value + 7) % 7
         return firstDayOfMonth.plusDays(dayOfWeekDiff.toLong())
