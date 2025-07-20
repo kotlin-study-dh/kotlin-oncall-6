@@ -16,7 +16,7 @@ object OutputView {
             } else {
                 date.korDayOfWeek()
             }
-            println("${date.month}월 ${date.dayOfMonth}일 $korDayOfWeek ${worker.name}")
+            println("${date.month.value}월 ${date.dayOfMonth}일 $korDayOfWeek ${worker.name}")
         }
     }
 
