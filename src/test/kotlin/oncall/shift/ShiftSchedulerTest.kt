@@ -4,11 +4,88 @@ import oncall.shift.ShiftWorkers.NonWorkingDayShiftWorkers
 import oncall.shift.ShiftWorkers.WorkingDayShiftWorkers
 import oncall.worker.Worker
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 
 class ShiftSchedulerTest {
     private val shiftScheduler = ShiftScheduler()
+
+    @Test
+    fun `should fails to create shift schedule when unique shift workers size is less than 5`() {
+        // given
+        val workingDayShiftWorkers = WorkingDayShiftWorkers.from(
+            listOf("Capy", "Prin", "Tre")
+        )
+        val nonWorkingDayShiftWorkers = NonWorkingDayShiftWorkers.from(
+            listOf("Capy", "Pram")
+        )
+        val month = 5
+        val korDayOfWeek = "월"
+
+        // when & then
+        assertThatThrownBy {
+            shiftScheduler.create(workingDayShiftWorkers, nonWorkingDayShiftWorkers, month, korDayOfWeek)
+        }.isExactlyInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("Unique shift workers must be between 5 and 35. Invalid shift worker size: 4.")
+    }
+
+    @Test
+    fun `should fails to create shift schedule when unique shift workers size is greater than 35`() {
+        // given
+        val workingDayShiftWorkers = WorkingDayShiftWorkers.from(
+            listOf(
+                "Capy",
+                "Rosie",
+                "Prin",
+                "Pram",
+                "Tre",
+                "Kirby",
+                "Choco",
+                "Rush",
+                "Zeus",
+                "Dora",
+                "Jerry",
+                "Mason",
+                "Roro",
+                "Ash",
+                "Liv",
+                "Kyum",
+                "Pola",
+                "Henry",
+                "Anna",
+            )
+        )
+        val nonWorkingDayShiftWorkers = NonWorkingDayShiftWorkers.from(
+            listOf(
+                "aa",
+                "bb",
+                "cc",
+                "dd",
+                "ee",
+                "ff",
+                "gg",
+                "hh",
+                "ii",
+                "jj",
+                "kk",
+                "ll",
+                "mm",
+                "nn",
+                "oo",
+                "pp",
+                "qq",
+            )
+        )
+        val month = 5
+        val korDayOfWeek = "월"
+
+        // when & then
+        assertThatThrownBy {
+            shiftScheduler.create(workingDayShiftWorkers, nonWorkingDayShiftWorkers, month, korDayOfWeek)
+        }.isExactlyInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("Unique shift workers must be between 5 and 35. Invalid shift worker size: 36.")
+    }
 
     @Test
     fun `should create shift schedule for given month and day of week (MAY)`() {

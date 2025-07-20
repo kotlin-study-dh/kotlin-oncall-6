@@ -19,10 +19,21 @@ class ShiftScheduler {
         month: Int,
         korDayOfWeek: String,
     ): Map<LocalDate, Worker> {
-        // todo validate size
+        validateShiftWorkersSize(workingDayShiftWorkers, nonWorkingDayShiftWorkers)
         val dayOfWeek = LocalDateUtil.getDayOfWeekFromKor(korDayOfWeek)
         val startDate = LocalDateUtil.resolveFirstMatchingDayOfWeek(month, dayOfWeek)
         return createSchedule(startDate, workingDayShiftWorkers, nonWorkingDayShiftWorkers)
+    }
+
+    private fun validateShiftWorkersSize(
+        workingDayShiftWorkers: WorkingDayShiftWorkers,
+        nonWorkingDayShiftWorkers: NonWorkingDayShiftWorkers,
+    ) {
+        val uniqueShiftWorkers = workingDayShiftWorkers.shiftWorkers
+            .union(nonWorkingDayShiftWorkers.shiftWorkers)
+        require(uniqueShiftWorkers.size in MIN_SHIFT_WORKERS..MAX_SHIFT_WORKERS) {
+            "Unique shift workers must be between $MIN_SHIFT_WORKERS and $MAX_SHIFT_WORKERS. Invalid shift worker size: ${uniqueShiftWorkers.size}."
+        }
     }
 
     private fun createSchedule(
@@ -71,5 +82,10 @@ class ShiftScheduler {
                 nextWorker
             }
         }
+    }
+
+    companion object {
+        private const val MIN_SHIFT_WORKERS = 5
+        private const val MAX_SHIFT_WORKERS = 35
     }
 }
