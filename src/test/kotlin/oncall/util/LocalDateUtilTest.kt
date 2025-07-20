@@ -106,6 +106,18 @@ class LocalDateUtilTest {
     }
 
     @Test
+    fun `should return the previous day correctly`() {
+        // given
+        val localDate = LocalDate.of(2023, 10, 2)
+
+        // when
+        val previousDate = localDate.previous()
+
+        // then
+        assertThat(previousDate).isEqualTo(LocalDate.of(2023, 10, 1))
+    }
+
+    @Test
     fun `should return the next day correctly`() {
         // given
         val localDate = LocalDate.of(2023, 10, 2)

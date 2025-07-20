@@ -41,6 +41,10 @@ fun LocalDate.korDayOfWeek(): String {
     return dayOfWeekToKor[this.dayOfWeek]!!
 }
 
+fun LocalDate.previous(): LocalDate {
+    return this.minusDays(1)
+}
+
 fun LocalDate.next(): LocalDate {
     return this.plusDays(1)
 }
