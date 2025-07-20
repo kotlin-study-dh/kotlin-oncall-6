@@ -20,13 +20,11 @@ class ShiftSchedulerTest {
         val nonWorkingDayShiftWorkers = NonWorkingDayShiftWorkers.from(
             listOf("Capy", "Pram")
         )
-        val month = 5
-        val korDayOfWeek = "월"
+        val startDate = LocalDate.of(2023, 5, 2)
 
         // when & then
-        assertThatThrownBy {
-            shiftScheduler.create(workingDayShiftWorkers, nonWorkingDayShiftWorkers, month, korDayOfWeek)
-        }.isExactlyInstanceOf(IllegalArgumentException::class.java)
+        assertThatThrownBy { shiftScheduler.create(workingDayShiftWorkers, nonWorkingDayShiftWorkers, startDate) }
+            .isExactlyInstanceOf(IllegalArgumentException::class.java)
             .hasMessageContaining("Unique shift workers must be between 5 and 35. Invalid shift worker size: 4.")
     }
 
@@ -77,13 +75,11 @@ class ShiftSchedulerTest {
                 "qq",
             )
         )
-        val month = 5
-        val korDayOfWeek = "월"
+        val startDate = LocalDate.of(2023, 5, 2)
 
         // when & then
-        assertThatThrownBy {
-            shiftScheduler.create(workingDayShiftWorkers, nonWorkingDayShiftWorkers, month, korDayOfWeek)
-        }.isExactlyInstanceOf(IllegalArgumentException::class.java)
+        assertThatThrownBy { shiftScheduler.create(workingDayShiftWorkers, nonWorkingDayShiftWorkers, startDate) }
+            .isExactlyInstanceOf(IllegalArgumentException::class.java)
             .hasMessageContaining("Unique shift workers must be between 5 and 35. Invalid shift worker size: 36.")
     }
 
@@ -96,16 +92,10 @@ class ShiftSchedulerTest {
         val nonWorkingDayShiftWorkers = NonWorkingDayShiftWorkers.from(
             listOf("Pram", "Tre", "Kirby", "Choco", "Rush", "Zeus", "Dora", "Jerry", "Capy", "Rosie", "Prin")
         )
-        val month = 5
-        val korDayOfWeek = "월"
+        val startDate = LocalDate.of(2023, 5, 1)
 
         // when
-        val schedule = shiftScheduler.create(
-            workingDayShiftWorkers,
-            nonWorkingDayShiftWorkers,
-            month,
-            korDayOfWeek
-        )
+        val schedule = shiftScheduler.create(workingDayShiftWorkers, nonWorkingDayShiftWorkers, startDate)
 
         // then
         assertThat(schedule).containsExactlyEntriesOf(
@@ -154,16 +144,10 @@ class ShiftSchedulerTest {
         val nonWorkingDayShiftWorkers = NonWorkingDayShiftWorkers.from(
             listOf("Capy", "Tre", "Pram", "Kirby")
         )
-        val month = 10
-        val korDayOfWeek = "월"
+        val startDate = LocalDate.of(2023, 10, 2)
 
         // when
-        val schedule = shiftScheduler.create(
-            workingDayShiftWorkers,
-            nonWorkingDayShiftWorkers,
-            month,
-            korDayOfWeek
-        )
+        val schedule = shiftScheduler.create(workingDayShiftWorkers, nonWorkingDayShiftWorkers, startDate)
 
         // then
         assertThat(schedule).containsExactlyEntriesOf(

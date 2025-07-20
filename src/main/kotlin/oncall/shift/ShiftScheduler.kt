@@ -2,7 +2,6 @@ package oncall.shift
 
 import oncall.shift.ShiftWorkers.NonWorkingDayShiftWorkers
 import oncall.shift.ShiftWorkers.WorkingDayShiftWorkers
-import oncall.util.LocalDateUtil
 import oncall.util.isDifferentMonth
 import oncall.util.isWorkingDay
 import oncall.util.next
@@ -16,12 +15,9 @@ class ShiftScheduler {
     fun create(
         workingDayShiftWorkers: WorkingDayShiftWorkers,
         nonWorkingDayShiftWorkers: NonWorkingDayShiftWorkers,
-        month: Int,
-        korDayOfWeek: String,
+        startDate: LocalDate,
     ): Map<LocalDate, Worker> {
         validateShiftWorkersSize(workingDayShiftWorkers, nonWorkingDayShiftWorkers)
-        val dayOfWeek = LocalDateUtil.getDayOfWeekFromKor(korDayOfWeek)
-        val startDate = LocalDateUtil.resolveFirstMatchingDayOfWeek(month, dayOfWeek)
         return createSchedule(startDate, workingDayShiftWorkers, nonWorkingDayShiftWorkers)
     }
 
