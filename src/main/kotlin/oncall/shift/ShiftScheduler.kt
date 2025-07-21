@@ -18,30 +18,10 @@ class ShiftScheduler {
         startDate: LocalDate,
     ): Map<LocalDate, Worker> {
         validateShiftWorkersSize(workingDayShiftWorkers, nonWorkingDayShiftWorkers)
-        return createSchedule(startDate, workingDayShiftWorkers, nonWorkingDayShiftWorkers)
-    }
-
-    private fun validateShiftWorkersSize(
-        workingDayShiftWorkers: WorkingDayShiftWorkers,
-        nonWorkingDayShiftWorkers: NonWorkingDayShiftWorkers,
-    ) {
-        workingDayShiftWorkers.shiftWorkers.union(nonWorkingDayShiftWorkers.shiftWorkers).also {
-            require(it.size in MIN_SHIFT_WORKERS..MAX_SHIFT_WORKERS) {
-                "Unique shift workers must be between $MIN_SHIFT_WORKERS and $MAX_SHIFT_WORKERS. Invalid shift worker size: ${it.size}."
-            }
-        }
-    }
-
-    private fun createSchedule(
-        startDate: LocalDate,
-        workingDayShiftWorkers: WorkingDayShiftWorkers,
-        nonWorkingDayShiftWorkers: NonWorkingDayShiftWorkers,
-    ): Map<LocalDate, Worker> {
         var now = startDate
         val schedule = LinkedHashMap<LocalDate, Worker>()
         val workingDayConsecutiveShiftWorkers: Queue<Worker> = LinkedList()
         val nonWorkingDayConsecutiveShiftWorkers: Queue<Worker> = LinkedList()
-
         while (startDate.isSameMonth(now)) {
             val previousWorker = schedule[now.previous()]
             val nextWorker = if (now.isWorkingDay()) {
@@ -53,6 +33,17 @@ class ShiftScheduler {
             now = now.next()
         }
         return schedule
+    }
+
+    private fun validateShiftWorkersSize(
+        workingDayShiftWorkers: WorkingDayShiftWorkers,
+        nonWorkingDayShiftWorkers: NonWorkingDayShiftWorkers,
+    ) {
+        workingDayShiftWorkers.shiftWorkers.union(nonWorkingDayShiftWorkers.shiftWorkers).also {
+            require(it.size in MIN_SHIFT_WORKERS..MAX_SHIFT_WORKERS) {
+                "Unique shift workers must be between $MIN_SHIFT_WORKERS and $MAX_SHIFT_WORKERS. Invalid shift worker size: ${it.size}."
+            }
+        }
     }
 
     private fun getNextWorker(
