@@ -1,4 +1,4 @@
-package oncall.domain
+package oncall.domain.member
 
 class Members(names: List<String>) {
 

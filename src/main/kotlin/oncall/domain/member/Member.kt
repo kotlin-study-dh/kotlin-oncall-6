@@ -1,4 +1,4 @@
-package oncall.domain
+package oncall.domain.member
 
 data class Member(val name: String) {
 

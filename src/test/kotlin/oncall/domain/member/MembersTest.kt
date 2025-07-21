@@ -1,4 +1,4 @@
-package oncall.domain
+package oncall.domain.member
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
