@@ -1,8 +1,10 @@
 package oncall.view
 
 import camp.nextstep.edu.missionutils.Console
+import oncall.toDayOfWeek
+import java.time.DayOfWeek
 
-fun readOnCallMonthAndStartDay(): Pair<Int, String> {
+fun readOnCallMonthAndStartDay(): Pair<Int, DayOfWeek> {
     print("비상 근무를 배정할 월과 시작 요일을 입력하세요> ")
     val input = Console.readLine()
     require(input.isNotBlank()) {
@@ -17,7 +19,7 @@ fun readOnCallMonthAndStartDay(): Pair<Int, String> {
     }
 
     val month = parts[0].toIntOrNull() ?: throw IllegalArgumentException("Month must be an integer")
-    val day = parts[1]
+    val day = toDayOfWeek( parts[1])
 
     return Pair(month, day)
 }
