@@ -9,8 +9,6 @@ sealed class ShiftWorkers(
 ) {
     val shiftWorkers: List<Worker>
         get() = _shiftWorkers.toList()
-    val size: Int
-        get() = _shiftWorkers.size
 
     class WorkingDayShiftWorkers(shiftWorkers: Queue<Worker>) : ShiftWorkers(shiftWorkers) {
         companion object {
