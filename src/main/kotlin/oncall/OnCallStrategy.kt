@@ -1,13 +1,12 @@
 package oncall
 
 import oncall.domain.Calender
-import oncall.domain.Workers
+import oncall.domain.OnCallWorkers
 
 interface OnCallStrategy {
 
     fun assign(
-        weekdayWorkers: Workers,
-        holidayWorkers: Workers,
+        onCallWorkers: OnCallWorkers,
         calender: Calender
     ): List<DailyOnCallAssignment>
 }

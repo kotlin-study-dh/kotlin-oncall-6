@@ -2,14 +2,13 @@ package oncall
 
 import oncall.domain.Calender
 import oncall.domain.Holiday
+import oncall.domain.OnCallWorkers
 import oncall.domain.Worker
-import oncall.domain.Workers
 
 class NonConsecutiveRotationStrategy : OnCallStrategy {
 
     override fun assign(
-        weekdayWorkers: Workers,
-        holidayWorkers: Workers,
+        onCallWorkers: OnCallWorkers,
         calender: Calender
     ): List<DailyOnCallAssignment> {
         val holidays = (Holiday.getDaysOfHolidays(calender.month) + calender.calculateWeekend()).toSet()
@@ -20,9 +19,9 @@ class NonConsecutiveRotationStrategy : OnCallStrategy {
             val isOnHoliday = holidays.contains(dayOfMonth)
 
             val assignedWorker = if (isOnHoliday) {
-                holidayWorkers.getAssignedWorkerForDay(primaryWorker)
+                onCallWorkers.holidayWorkers.getAssignedWorkerForDay(primaryWorker)
             } else {
-                weekdayWorkers.getAssignedWorkerForDay(primaryWorker)
+                onCallWorkers.weekdayWorkers.getAssignedWorkerForDay(primaryWorker)
             }
 
             primaryWorker = assignedWorker
