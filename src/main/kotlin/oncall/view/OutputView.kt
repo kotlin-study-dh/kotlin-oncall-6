@@ -8,7 +8,7 @@ fun printOnCallWorkers(onCallAssignment: List<DailyOnCallAssignment>) {
         println(
             "${it.onCallDate.month.value}월 " +
                     "${it.onCallDate.day}일 " +
-                    "${toStringDayOfWeek(it.onCallDate.dayOfWeek)} ${it.worker.name.name}"
+                    "${toStringDayOfWeek(it.onCallDate.dayOfWeek)} ${it.worker.name.value}"
         )
     }
 }
