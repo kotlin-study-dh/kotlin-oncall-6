@@ -19,6 +19,9 @@ fun readOnCallMonthAndStartDay(): Pair<Int, DayOfWeek> {
     }
 
     val month = parts[0].toIntOrNull() ?: throw IllegalArgumentException("Month must be an integer")
+    require(month in 1..12) {
+        IllegalArgumentException("Month must be between 1 and 12")
+    }
     val day = toDayOfWeek( parts[1])
 
     return Pair(month, day)
