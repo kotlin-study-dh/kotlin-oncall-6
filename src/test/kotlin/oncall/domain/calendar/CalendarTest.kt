@@ -22,6 +22,4 @@ class CalendarTest {
         // when & then
         assert(calendar.retrieveWeekends().size == 8)
     }
-
-
 }

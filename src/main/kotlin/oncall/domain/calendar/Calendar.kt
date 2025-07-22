@@ -6,10 +6,12 @@ import java.time.Year
 class Calendar(month: Int, dayOfMonth: DayOfWeek) {
 
     val days: List<Day>
+    val holidayResolver: HolidayResolver
 
     init {
         val endOfMoth = Year.of(BASE_YEAR).atMonth(month).atEndOfMonth().dayOfMonth
         days = (0 until endOfMoth).map { Day(month, it + 1, dayOfMonth.plus(it.toLong())) }
+        holidayResolver = HolidayResolver()
     }
 
     fun retrieveWeekends(): List<Day> {
