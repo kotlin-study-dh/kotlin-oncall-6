@@ -14,8 +14,13 @@ class Calendar(month: Int, dayOfMonth: DayOfWeek) {
         holidayResolver = HolidayResolver()
     }
 
+    val size
+        get() = days.size
+
+    operator fun get(index: Int) = days[index]
+
     fun retrieveWeekends(): List<Day> {
-        return days.filter { it.isWeekend }
+        return days.filter { it.isHoliday }
     }
 
     fun retrieveWeekdays(): List<Day> {

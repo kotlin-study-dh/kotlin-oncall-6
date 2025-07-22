@@ -14,6 +14,13 @@ class Members(names: List<String>) {
         members = names.map { Member(it) }
     }
 
+    val size: Int
+        get() = members.size
+
+    operator fun get(index: Int): Member {
+        return members[index]
+    }
+
     companion object {
         const val MIN_MEMBER_LENGTH = 5
         const val MAX_MEMBER_LENGTH = 35

@@ -6,9 +6,12 @@ data class Day(val month: Int, val day: Int, val dayOfWeek: DayOfWeek = DayOfWee
 
     val holidayResolver: HolidayResolver = HolidayResolver()
 
-    val isWeekend: Boolean
+    val isHoliday: Boolean
         get() = dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY || holidayResolver.resolve(this)
 
     val isWeekDay: Boolean
         get() = dayOfWeek != DayOfWeek.SATURDAY && dayOfWeek != DayOfWeek.SUNDAY && !holidayResolver.resolve(this)
+
+    val isLegalHoliday: Boolean
+        get() = holidayResolver.resolve(this)
 }
