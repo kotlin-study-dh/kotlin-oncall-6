@@ -13,12 +13,12 @@ class Scheduler(private val calendar: Calendar, weekdayOrder: Members, holidayOr
         val orders = mutableListOf<ScheduledResponse>()
         for (i in 1..calendar.size) {
             if (calendar[i - 1].isHoliday) {
-                orders.add(ScheduledResponse(holidayQueue.next().name, calendar[i - 1]))
+                orders.add(ScheduledResponse(holidayQueue.next(orders.lastOrNull()?.name ?: ""), calendar[i - 1]))
             }
             if (calendar[i - 1].isWeekDay) {
-                orders.add(ScheduledResponse(weekdayQueue.next().name, calendar[i - 1]))
+                orders.add(ScheduledResponse(weekdayQueue.next(orders.lastOrNull()?.name ?: ""), calendar[i - 1]))
             }
         }
-        return orders
+        return orders.toList()
     }
 }
