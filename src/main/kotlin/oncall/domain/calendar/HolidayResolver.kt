@@ -3,7 +3,7 @@ package oncall.domain.calendar
 class HolidayResolver {
 
     fun resolve(day: Day): Boolean {
-        return HOLIDAY.contains(day)
+        return HOLIDAY.contains(Day(day.month, day.day))
     }
 
     companion object {
