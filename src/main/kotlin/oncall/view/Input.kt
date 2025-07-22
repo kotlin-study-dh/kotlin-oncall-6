@@ -14,12 +14,20 @@ object Input {
     }
 
     private fun extractDayOfWeek(readLine: String): String {
-        return readLine.split(",")[DAY_OF_WEEK_OFFSET]
+        val split = readLine.split(",")
+        if (split.size != 2) {
+            throw IllegalArgumentException("올바른 형식으로 다시 입력해주세요.")
+        }
+        return split[DAY_OF_WEEK_OFFSET]
     }
 
     private fun extractMonth(readLine: String): Int {
         try {
-            return readLine.split(",")[MONTH_OFFSET].toInt()
+            val convert = readLine.split(",")[MONTH_OFFSET].toInt()
+            if (convert <= 0 || convert > 12) {
+                throw IllegalArgumentException("올바르지 않은 월입니다.")
+            }
+            return convert
         } catch (e: NumberFormatException) {
             throw IllegalArgumentException("올바르지 않는 숫자 형식입니다.")
         }

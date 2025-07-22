@@ -3,7 +3,7 @@ package oncall.domain.calendar
 import java.time.DayOfWeek
 import java.time.Year
 
-class Calendar(month: Int, dayOfMonth: DayOfWeek) {
+class Calendar(val month: Int, dayOfMonth: DayOfWeek) {
 
     val days: List<Day>
     val holidayResolver: HolidayResolver

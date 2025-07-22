@@ -13,7 +13,11 @@ enum class CustomDayOfWeek(val text: String, val dayOfWeek: DayOfWeek) {
 
     companion object {
         fun from(korean: String): CustomDayOfWeek {
-            return CustomDayOfWeek.entries.first { korean == it.text }
+            try {
+                return CustomDayOfWeek.entries.first { korean == it.text }
+            } catch (e: Exception) {
+                throw IllegalArgumentException("존재하지 않는 요일입니다. 다시 입력해주세요.")
+            }
         }
 
         fun from(dayOfWeek: DayOfWeek): CustomDayOfWeek {
