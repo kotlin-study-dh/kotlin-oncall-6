@@ -5,7 +5,6 @@ import java.time.LocalDate
 import java.time.Month
 
 private const val DEFAULT_YEAR = 2023
-private const val i = 1
 
 private val publicHolidays = setOf(
     LocalDate.of(DEFAULT_YEAR, 1, 1),
