@@ -29,8 +29,6 @@ private val KorToDayOfWeek = dayOfWeekToKor.entries
 
 fun LocalDate.isWorkingDay() = this.dayOfWeek.value in 1..5 && !this.isPublicHoliday()
 
-fun LocalDate.isNonWorkingDay() = this.dayOfWeek.value in 6..7 || this.isPublicHoliday()
-
 fun LocalDate.isPublicHoliday() = publicHolidays.contains(this)
 
 fun LocalDate.korDayOfWeek() = dayOfWeekToKor[this.dayOfWeek]!!

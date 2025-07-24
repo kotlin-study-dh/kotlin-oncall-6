@@ -36,31 +36,6 @@ class LocalDateUtilTest {
     }
 
     @Test
-    fun `should return false when the date is a weekday`() {
-        // given
-        val localDate = LocalDate.of(2023, 10, 2)
-
-        // when
-        val isWorkingDay = localDate.isNonWorkingDay()
-
-        // then
-        assertThat(isWorkingDay).isFalse()
-    }
-
-    @ParameterizedTest(name = "dayOfMonth={0}")
-    @ValueSource(ints = [1, 3])
-    fun `should return true when the date is a weekend or public holiday`() {
-        // given
-        val localDate = LocalDate.of(2023, 10, 3)
-
-        // when
-        val isNonWorkingDay = localDate.isNonWorkingDay()
-
-        // then
-        assertThat(isNonWorkingDay).isTrue()
-    }
-
-    @Test
     fun `should return false when the date is not a public holiday`() {
         // given
         val localDate = LocalDate.of(2023, 10, 2)
