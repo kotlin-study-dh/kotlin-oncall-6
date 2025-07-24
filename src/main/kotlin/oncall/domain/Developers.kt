@@ -5,7 +5,7 @@ data class Developers(
     private var nextIndex: Int = 0
 ) {
     init {
-        require(developers.size in 5..35) { "Number of developers must be between 5 and 35." }
+        require(developers.size in MINIMUM_SIZE..MAXIMUM_SIZE) { "Number of developers must be between $MINIMUM_SIZE and $MAXIMUM_SIZE." }
         require(developers.distinct().size == developers.size) { "Developer names must not be duplicated." }
     }
 
@@ -31,5 +31,10 @@ data class Developers(
         val otherDevSet = other.developers.toSet()
         return devSet.size == otherDevSet.size
                 && (devSet + otherDevSet).size == devSet.size
+    }
+
+    companion object {
+        private const val MINIMUM_SIZE = 5
+        private const val MAXIMUM_SIZE = 35
     }
 } 
