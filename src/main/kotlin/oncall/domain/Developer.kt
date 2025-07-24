@@ -8,4 +8,8 @@ data class Developer(val name: String) {
     override fun equals(other: Any?): Boolean {
         return name == (other as Developer).name
     }
+
+    override fun hashCode(): Int {
+        return name.hashCode()
+    }
 }
