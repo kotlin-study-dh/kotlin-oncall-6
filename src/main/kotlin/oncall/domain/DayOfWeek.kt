@@ -12,7 +12,7 @@ enum class DayOfWeek(val abbreviation: String, val type: DayOfWeekType) {
     SATURDAY("Sat", WEEKEND),
     SUNDAY("Sun", WEEKEND);
 
-    fun nextDay(): DayOfWeek = when (this) {
+    fun tomorrow(): DayOfWeek = when (this) {
         MONDAY -> TUESDAY
         TUESDAY -> WEDNESDAY
         WEDNESDAY -> THURSDAY

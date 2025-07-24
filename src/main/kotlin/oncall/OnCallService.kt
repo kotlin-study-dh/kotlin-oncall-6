@@ -62,7 +62,7 @@ class OnCallService {
                     nextDeveloper
                 )
             )
-            dayOfWeek = dayOfWeek.nextDay()
+            dayOfWeek = dayOfWeek.tomorrow()
         }
         return onCallAssignments
     }
