@@ -39,10 +39,11 @@ class ShiftScheduler {
         workingDayShiftWorkers: WorkingDayShiftWorkers,
         nonWorkingDayShiftWorkers: NonWorkingDayShiftWorkers,
     ) {
-        workingDayShiftWorkers.shiftWorkers.union(nonWorkingDayShiftWorkers.shiftWorkers).also {
-            require(it.size in MIN_SHIFT_WORKERS..MAX_SHIFT_WORKERS) {
-                "Unique shift workers must be between $MIN_SHIFT_WORKERS and $MAX_SHIFT_WORKERS. Invalid shift worker size: ${it.size}."
-            }
+        require(
+            workingDayShiftWorkers.containsAll(nonWorkingDayShiftWorkers) &&
+                    nonWorkingDayShiftWorkers.containsAll(workingDayShiftWorkers)
+        ) {
+            "working day shift workers must be assigned to non-working day shift workers and vice versa."
         }
     }
 
@@ -69,10 +70,5 @@ class ShiftScheduler {
                 nextWorker
             }
         }
-    }
-
-    companion object {
-        private const val MIN_SHIFT_WORKERS = 5
-        private const val MAX_SHIFT_WORKERS = 35
     }
 }

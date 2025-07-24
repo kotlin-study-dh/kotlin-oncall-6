@@ -5,11 +5,8 @@ import java.util.LinkedList
 import java.util.Queue
 
 sealed class ShiftWorkers(
-    private val _shiftWorkers: Queue<Worker>,
+    private val shiftWorkers: Queue<Worker>,
 ) {
-    val shiftWorkers: List<Worker>
-        get() = _shiftWorkers.toList()
-
     class WorkingDayShiftWorkers(shiftWorkers: Queue<Worker>) : ShiftWorkers(shiftWorkers) {
         companion object {
             fun from(workerNames: List<String>): WorkingDayShiftWorkers {
@@ -29,24 +26,29 @@ sealed class ShiftWorkers(
     }
 
     init {
-        require(_shiftWorkers.size == _shiftWorkers.toSet().size) {
-            "Shift worker names must be unique. ${this::class.simpleName}: ${_shiftWorkers.map { it.name }}"
+        require(shiftWorkers.size == shiftWorkers.toSet().size) {
+            "Shift worker names must be unique. ${this::class.simpleName}: ${shiftWorkers.map { it.name }}"
         }
-        require(_shiftWorkers.size >= MIN_SHIFT_WORKERS) {
-            "There must be at least $MIN_SHIFT_WORKERS shift workers. ${this::class.simpleName}: ${_shiftWorkers.map { it.name }}"
+        require(shiftWorkers.size in MIN_SHIFT_WORKERS..MAX_SHIFT_WORKERS) {
+            "Unique shift workers must be between $MIN_SHIFT_WORKERS and $MAX_SHIFT_WORKERS. Invalid ${this::class.simpleName} size: ${shiftWorkers.size}."
         }
     }
 
+    fun containsAll(other: ShiftWorkers): Boolean {
+        return shiftWorkers.containsAll(other.shiftWorkers)
+    }
+
     fun getWorker(): Worker {
-        check(_shiftWorkers.isNotEmpty()) {
+        check(shiftWorkers.isNotEmpty()) {
             "There are no shift workers available."
         }
-        val worker = _shiftWorkers.poll()
-        _shiftWorkers.offer(worker)
+        val worker = shiftWorkers.poll()
+        shiftWorkers.offer(worker)
         return worker
     }
 
     companion object {
-        private const val MIN_SHIFT_WORKERS = 2
+        private const val MIN_SHIFT_WORKERS = 5
+        private const val MAX_SHIFT_WORKERS = 35
     }
 }
