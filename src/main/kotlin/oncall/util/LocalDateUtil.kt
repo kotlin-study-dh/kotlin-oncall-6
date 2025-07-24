@@ -33,9 +33,9 @@ fun LocalDate.isPublicHoliday() = publicHolidays.contains(this)
 
 fun LocalDate.korDayOfWeek() = dayOfWeekToKor[this.dayOfWeek]!!
 
-fun LocalDate.previous() = this.minusDays(1)!!
+fun LocalDate.previous(): LocalDate = this.minusDays(1)
 
-fun LocalDate.next() = this.plusDays(1)!!
+fun LocalDate.next(): LocalDate = this.plusDays(1)
 
 fun LocalDate.isSameMonth(other: LocalDate) = this.year == other.year && this.month == other.month
 
