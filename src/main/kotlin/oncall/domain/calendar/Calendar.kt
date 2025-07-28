@@ -1,17 +1,14 @@
 package oncall.domain.calendar
 
 import java.time.DayOfWeek
-import java.time.Year
 
 class Calendar(val month: Int, dayOfMonth: DayOfWeek) {
 
     private val days: List<Day>
-    private val holidayResolver: HolidayResolver
 
     init {
-        val endOfMoth = Year.of(BASE_YEAR).atMonth(month).atEndOfMonth().dayOfMonth
+        val endOfMoth = Month.from(month).endOfDay
         days = (0 until endOfMoth).map { Day(month, it + 1, dayOfMonth.plus(it.toLong())) }
-        holidayResolver = HolidayResolver()
     }
 
     val size
