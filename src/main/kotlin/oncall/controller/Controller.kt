@@ -19,10 +19,9 @@ class Controller {
     }
 
     private fun createCalendar(): Calendar {
-        val dayOfWeekAndMonth = Input.enterStartDate()
-        val dayOfWeek = CustomDayOfWeek.from(dayOfWeekAndMonth.first).dayOfWeek
-        val month = dayOfWeekAndMonth.second
-        return Calendar(month, dayOfWeek)
+        val (dayOfWeek, month) = Input.enterStartDate()
+        val customDayOfWeek = CustomDayOfWeek.from(dayOfWeek).dayOfWeek
+        return Calendar(month, customDayOfWeek)
     }
 
     private fun createWeekdayMember(): Members {
