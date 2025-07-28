@@ -6,6 +6,9 @@ data class Member(val name: String) {
         require(name.length <= MAX_NAME_LENGTH) {
             "The length of member must be less than $MAX_NAME_LENGTH"
         }
+        require(name.isNotBlank()) {
+            "The member name must not be blank"
+        }
     }
 
     companion object {
