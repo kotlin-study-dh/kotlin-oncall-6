@@ -4,7 +4,7 @@ import java.time.DayOfWeek
 
 data class Day(val month: Int, val day: Int, val dayOfWeek: DayOfWeek = DayOfWeek.MONDAY) {
 
-    val holidayResolver: HolidayResolver = HolidayResolver()
+    private val holidayResolver: HolidayResolver = HolidayResolver()
 
     val isHoliday: Boolean
         get() = dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY || holidayResolver.resolve(this)
