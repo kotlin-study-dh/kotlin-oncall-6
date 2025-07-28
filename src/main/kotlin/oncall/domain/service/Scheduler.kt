@@ -9,6 +9,12 @@ class Scheduler(private val calendar: Calendar, weekdayOrder: Members, holidayOr
     private val holidayQueue: OnCallWaitingQueue = OnCallWaitingQueue(holidayOrder)
     private val weekdayQueue: OnCallWaitingQueue = OnCallWaitingQueue(weekdayOrder)
 
+    init {
+        require(weekdayOrder.compareInAnyOrder(holidayOrder)) {
+            "weekday member and holiday order are not equal"
+        }
+    }
+
     fun schedule(): List<ScheduledResponse> {
         val orders = mutableListOf<ScheduledResponse>()
         for (i in 1..calendar.size) {

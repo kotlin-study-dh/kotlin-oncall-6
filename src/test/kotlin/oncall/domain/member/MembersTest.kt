@@ -1,5 +1,6 @@
 package oncall.domain.member
 
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
@@ -31,5 +32,32 @@ class MembersTest {
         assertThrows<IllegalArgumentException> {
             Members(listOf("a", "a", "b", "c", "d"))
         }
+    }
+
+    @Test
+    fun `compare two member in any order`() {
+        // given
+        val members = Members(listOf("a", "b", "c", "d", "e"))
+        val others = Members(listOf("e", "b", "c", "d", "a"))
+
+        // when
+        val result = members.compareInAnyOrder(others)
+
+        // then
+        assert(result)
+    }
+
+
+    @Test
+    fun `compare two member should return false when different members`() {
+        // given
+        val members = Members(listOf("a", "b", "c", "d", "e"))
+        val others = Members(listOf("e", "f", "c", "d", "a"))
+
+        // when
+        val result = members.compareInAnyOrder(others)
+
+        // then
+        assertFalse(result)
     }
 }

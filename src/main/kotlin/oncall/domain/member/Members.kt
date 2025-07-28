@@ -2,7 +2,7 @@ package oncall.domain.member
 
 class Members(names: List<String>) {
 
-    val members: List<Member>
+    private val members: List<Member>
 
     init {
         require(names.size in MIN_MEMBER_LENGTH..MAX_MEMBER_LENGTH) {
@@ -19,6 +19,19 @@ class Members(names: List<String>) {
 
     operator fun get(index: Int): Member {
         return members[index]
+    }
+
+    fun compareInAnyOrder(others: Members): Boolean {
+        val distinctSize = others.members.distinct()
+        if (size != distinctSize.size) {
+            return false
+        }
+        for (member in members) {
+            if (!others.members.contains(member)) {
+                return false
+            }
+        }
+        return true
     }
 
     companion object {
