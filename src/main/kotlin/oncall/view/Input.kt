@@ -22,15 +22,11 @@ object Input {
     }
 
     private fun extractMonth(readLine: String): Int {
-        try {
-            val convert = readLine.split(",")[MONTH_OFFSET].toInt()
-            if (convert <= 0 || convert > 12) {
-                throw IllegalArgumentException("올바르지 않은 월입니다.")
-            }
-            return convert
-        } catch (e: NumberFormatException) {
-            throw IllegalArgumentException("올바르지 않는 숫자 형식입니다.")
+        val convert = readLine.split(",")[MONTH_OFFSET].toIntOrNull()
+        require(convert in 1..12 || convert != null) {
+            throw IllegalArgumentException("올바르지 않은 월입니다.")
         }
+        return convert!!
     }
 
     fun enterWeekdayOnCallMember(): List<String> {
