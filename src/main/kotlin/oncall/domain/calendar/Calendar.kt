@@ -5,8 +5,8 @@ import java.time.Year
 
 class Calendar(val month: Int, dayOfMonth: DayOfWeek) {
 
-    val days: List<Day>
-    val holidayResolver: HolidayResolver
+    private val days: List<Day>
+    private val holidayResolver: HolidayResolver
 
     init {
         val endOfMoth = Year.of(BASE_YEAR).atMonth(month).atEndOfMonth().dayOfMonth
