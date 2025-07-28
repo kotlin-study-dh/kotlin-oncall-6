@@ -22,8 +22,8 @@ class Members(names: List<String>) {
     }
 
     fun compareInAnyOrder(others: Members): Boolean {
-        val distinctSize = others.members.distinct()
-        if (size != distinctSize.size) {
+        val distinct = others.members.distinct()
+        if (size != distinct.size) {
             return false
         }
         for (member in members) {

@@ -12,7 +12,7 @@ class OnCallWaitingQueueTest {
         val queue = OnCallWaitingQueue(Members(listOf("프람", "초롱", "켬미", "제우스", "리사")))
 
         // when
-        val next = queue.next("")
+        val next = queue.next("-")
 
         // then
         assert(next == Member("프람"))

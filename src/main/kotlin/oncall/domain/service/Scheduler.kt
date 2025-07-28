@@ -11,20 +11,26 @@ class Scheduler(private val calendar: Calendar, weekdayOrder: Members, holidayOr
 
     init {
         require(weekdayOrder.compareInAnyOrder(holidayOrder)) {
-            "weekday member and holiday order are not equal"
+            "weekday member and holiday members are not equal"
         }
     }
 
     fun schedule(): List<ScheduledResponse> {
         val orders = mutableListOf<ScheduledResponse>()
-        for (i in 1..calendar.size) {
-            if (calendar[i - 1].isHoliday) {
-                orders.add(ScheduledResponse(holidayQueue.next(orders.lastOrNull()?.name ?: ""), calendar[i - 1]))
-            }
-            if (calendar[i - 1].isWeekDay) {
-                orders.add(ScheduledResponse(weekdayQueue.next(orders.lastOrNull()?.name ?: ""), calendar[i - 1]))
-            }
+        repeat(calendar.size) {
+            val queueForToday = if (calendar[it].isHoliday) holidayQueue else weekdayQueue
+            orders.add(
+                ScheduledResponse(
+                    queueForToday.next(orders.lastOrNull()?.name ?: NO_ONE_ASSIGNMENT),
+                    calendar[it]
+                )
+            )
+
         }
         return orders.toList()
+    }
+
+    companion object {
+        const val NO_ONE_ASSIGNMENT = "-"
     }
 }
