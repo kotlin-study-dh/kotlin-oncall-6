@@ -2,6 +2,7 @@ package oncall.domain.service
 
 import oncall.domain.calendar.Calendar
 import oncall.domain.member.Members
+import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThatCode
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -29,5 +30,26 @@ class SchedulerTest {
 
         // when & then
         assertThrows<IllegalArgumentException> { Scheduler(calendar, weekday, weekend) }
+    }
+
+    @Test
+    fun `schedule should generate scheduled order`() {
+        // given
+        val calendar: Calendar = Calendar(2, DayOfWeek.MONDAY)
+        val weekday = Members(listOf("a", "b", "c", "d", "e"))
+        val weekend = Members(listOf("e", "b", "a", "c", "d"))
+        val scheduledOrder = Scheduler(calendar, weekday, weekend)
+
+        // when
+        val scheduledResponses = scheduledOrder.schedule()
+
+        // then
+        Assertions.assertThat(scheduledResponses.map { it.name })
+            .containsExactly(
+                "a", "b", "c", "d", "e", "b", "e",
+                "a", "b", "c", "d", "e", "a", "c",
+                "a", "b", "c", "d", "e", "d", "e",
+                "a", "b", "c", "d", "e", "b", "a"
+            )
     }
 }
